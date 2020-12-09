@@ -26,6 +26,7 @@ public class Admin {
         root.setExpanded(true);
         TreeView<SysEntry> treeView = new TreeView<SysEntry>(root);
         Alert alert = new Alert(Alert.AlertType.WARNING);
+        Alert info = new Alert(Alert.AlertType.INFORMATION);
         Label label = new Label("");
         TextField userField = new TextField();
         userField.setPromptText("User ID");
@@ -135,6 +136,30 @@ public class Admin {
                 label.setText(String.format("The percentage of positive messages is %.2f%%",  positivePercentageVisitor.getPositiveMessage()));
             }
         });
+        Button valid = new Button("Validate IDs");
+        valid.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                UserVerification userVerification = new UserVerification();
+                rootGroup.accept(userVerification);
+                if(userVerification.getValid())
+                    info.setContentText("All IDs are valid");
+                else
+                    info.setContentText("Not all IDs are valid or an ID has white spaces");
+                info.showAndWait();
+            }
+        });
+        Button update = new Button("Recently Updated User");
+        update.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                UserUpdate userUpdate= new UserUpdate();
+                rootGroup.accept(userUpdate);
+                info.setContentText("Recently Updated User: " + userUpdate.getLastUpdateUser());
+                info.showAndWait();
+            }
+        });
+
         GridPane gridPane = new GridPane();
         gridPane.setVgap(10);
         gridPane.setHgap(10);
@@ -149,6 +174,8 @@ public class Admin {
         bottomPart.add(messageTotalButton, 0, 1);
         bottomPart.add(groupTotal, 1, 0);
         bottomPart.add(positivePercentage, 1, 1);
+        bottomPart.add(valid, 0,2);
+        bottomPart.add(update, 1, 2);
         VBox vbox = new VBox(gridPane, openUser, label, bottomPart);
         vbox.setPadding(new Insets(10, 10, 10, 10));
         vbox.setSpacing(10);

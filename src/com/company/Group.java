@@ -4,12 +4,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Group implements SysEntry {
-
+    private double creationTime;
     private String groupID;
     private List<SysEntry> groupMembers = new ArrayList<SysEntry>();
 
     public Group(String newID) {
         this.groupID = newID;
+        this.creationTime = System.currentTimeMillis();
+    }
+    public double getCreationTime()
+    {
+        return creationTime;
     }
 
     public void addGroupMember(SysEntry newMember){

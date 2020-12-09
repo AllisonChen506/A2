@@ -17,6 +17,7 @@ public class UserView {
     private UserView(User user, Group rootGroup) {
         Alert alert = new Alert(Alert.AlertType.WARNING);
         Label userName = new Label("User View For: " + user.getId());
+        Label timeCreated = new Label("Created at: " + user.getCreationTime());
         TextField userIDField = new TextField();
         userIDField.setPromptText("User ID");
         Button follow = new Button("Follow User");
@@ -63,7 +64,7 @@ public class UserView {
         HBox hbox2 = new HBox(tweetField, post);
         hbox2.setSpacing(10);
         hbox2.setAlignment(Pos.BOTTOM_LEFT);
-        VBox vBox = new VBox(userName, hbox1, currentFollowing, hbox2, newsFeed);
+        VBox vBox = new VBox(userName, timeCreated,hbox1, currentFollowing, hbox2, newsFeed);
         vBox.setPadding(new Insets(10,10,10,10));
         vBox.setSpacing(10);
         borderPane.setCenter(vBox);
